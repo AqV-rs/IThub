@@ -4,7 +4,6 @@ import string
 import mysql.connector
 from dotenv import load_dotenv
 
-# Загружаем переменные из .env
 load_dotenv()
 
 DB_HOST = os.getenv("MYSQL_HOST", "localhost")
