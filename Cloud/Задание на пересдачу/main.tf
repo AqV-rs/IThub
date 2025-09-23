@@ -116,6 +116,7 @@ resource "vkcs_compute_instance" "compute" {
   }
 
   user_data = <<-EOF
+    #cloud-config
     hostname: "ITHUBterraforubuntuper1-${var.lastname}"
     fqdn: "ITHUBterraforubuntuper1-${var.lastname}"
     package_update: true
