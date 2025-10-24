@@ -1,3 +1,4 @@
+# ЗАДАНИЕ 4
 dnf update -y
 dnf install -y curl wget vim git
 
@@ -17,14 +18,39 @@ minikube version
 
 minikube start --driver=docker --force
 
-#Нужно создать файл и внести правки (правильное расположение ресурсов(как у меня в файле), указать порт)
+#Нужно создать файл и внести правки (правильное расположение ресурсов(как у меня в файле), containers - должен быть списком через '-')
 kubectl create -f pod.yaml
 
 kubectl run redis --image=redis:5.0
-kubectl get pod redis -n default -o jsonpath=”{..image}”
+kubectl get pod redis -n default -o jsonpath=”{..image}” #вывод в логе
 
 #Меняем  - image: redis:5.0 на 6.0
 kubectl edit pod redis
-kubectl get pod redis -n default -o jsonpath=”{..image}”
+kubectl get pod redis -n default -o jsonpath=”{..image}” #вывод в логе
 
-kubectl logs redis
+kubectl logs redis #вывод в логе
+
+# ЗАДАНИЕ 5
+# cоздаем app-deployment.yaml
+kubectl create -f app-deployment.yaml
+
+kubectl get deployments #вывод в логе
+kubectl get pods -l app=web #вывод в логе
+
+#создаем web-service.yaml
+kubectl apply -f web-service.yaml
+kubectl get services #вывод в логе
+
+kubectl port-forward svc/web-service 8080:80 #вывод в логе
+
+curl http://localhost:8080 #вывод в логе
+
+kubectl scale deployment web-app --replicas=5
+
+kubectl get pods -l app=web
+
+#Меняем в app-deployment.yaml тег образа
+kubectl apply -f app-deployment.yaml
+kubectl rollout status deployment/web-app
+
+kubectl get pod web-app-685b6b67d-s7wgz -o jsonpath=”{..image}” #вывод в логе

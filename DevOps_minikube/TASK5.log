@@ -1,0 +1,30 @@
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+web-app   2/3     3            2           59s
+NAME                      READY   STATUS              RESTARTS   AGE
+web-app-fc8877fcf-2ghgp   0/1     ContainerCreating   0          59s
+web-app-fc8877fcf-lw56x   1/1     Running             0          59s
+web-app-fc8877fcf-wm787   1/1     Running             0          59s
+
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP   53m
+web-service   ClusterIP   10.106.178.199   <none>        80/TCP    43s
+
+Forwarding from 127.0.0.1:8080 -> 80
+Forwarding from [::1]:8080 -> 80
+
+curl http://localhost:8080
+<html><body><h1>It works!</h1></body></html>
+
+kubectl scale deployment web-app --replicas=5
+deployment.apps/web-app scaled
+
+kubectl get pods -l app=web
+NAME                      READY   STATUS    RESTARTS   AGE
+web-app-fc8877fcf-2ghgp   1/1     Running   0          8m56s
+web-app-fc8877fcf-4rbss   1/1     Running   0          45s
+web-app-fc8877fcf-92sxq   1/1     Running   0          45s
+web-app-fc8877fcf-lw56x   1/1     Running   0          8m56s
+web-app-fc8877fcf-wm787   1/1     Running   0          8m56s
+
+kubectl get pod web-app-685b6b67d-s7wgz -o jsonpath=”{..image}”
+”httpd:2.4.58 httpd:2.4.58”

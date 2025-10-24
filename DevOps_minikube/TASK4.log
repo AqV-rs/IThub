@@ -1,4 +1,4 @@
-kubectl get pods -l
+kubectl get pods
 NAME    READY   STATUS              RESTARTS   AGE
 redis   0/1     ContainerCreating   0          17s
 
