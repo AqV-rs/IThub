@@ -1,3 +1,4 @@
+FROM nginx:1.29.1
 COPY nginx.conf /etc/nginx/
 ARG CHANGE_SOURCE=false
 RUN if [ ${CHANGE_SOURCE} = true ]; then \
@@ -5,10 +6,9 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
 ;fi
 #Attach www-data user to an already existing group with -Gy
-RUN apk update \
-    && apk upgrade \
-    && apk add --no-cache openssl \
-    && apk add --no-cache bash
+RUN apt update \
+    && apt upgrade -y \
+    && apt install -y openssl
 
 RUN if [ `grep -c www-data /etc/group` = 0 ]; then \
          adduser -D -H -u 1000 -s /bin/bash www-data; \

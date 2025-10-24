@@ -1,5 +1,5 @@
-#FROM
-#USER
+FROM python:3.6
+USER root
 # uWSGI:
 RUN pip install uwsgi
 # Copy the base uWSGI ini file to enable default dynamic uwsgi process number
@@ -68,8 +68,9 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
 
 COPY ./requirements.txt /opt/
 RUN pip install -r /opt/requirements.txt
-ARG WORK_DIR=/var/www
+ARG WORK_DIR=/var/www/todo
+RUN mkdir -p logs
 RUN usermod -u 1000 www-data
 WORKDIR ${WORK_DIR}
 CMD [ "uwsgi" ]
-#PORT
+EXPOSE 9000

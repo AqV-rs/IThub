@@ -14,9 +14,9 @@ services:
         - "${NGINX_TODO_HOST_HTTPS_PORT}:443"
       depends_on:
         - todo
-      links:
-        - todo 
-      #networks:
+      networks:
+        - frontend
+        - backend
 
     todo:
       build:
@@ -29,10 +29,10 @@ services:
           - WORK_DIR=${APP_CODE_TODO_PATH_CONTAINER}
           - NODE_VERSION=${NODE_VERSION}
       volumes:
-        - #WAY
+        - ./web/cron/crontab_todo:/etc/crontab
         - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}   
-      expose:
-        - "9000"
+      ports:
+        - "9000:9000"
       depends_on:
         - db
         - redis
@@ -52,8 +52,8 @@ services:
       volumes:
           - ./consumers/supervisor/todo.conf:/etc/supervisor/conf.d/todo.conf 
           - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}   
-      expose:
-        - #PORT
+      ports:
+        - "9001:9001"
       depends_on:
         - db
         - redis
@@ -80,11 +80,12 @@ services:
         - backend
 
     redis:
-      ##build
+      build:
+        context: ./redis
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
       ports:
-        - "${REDIS_PORT}:#port"
+        - "${REDIS_PORT}:${REDIS_PORT}"
       networks:
         - backend            
 

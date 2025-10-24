@@ -1,4 +1,4 @@
-Django==1.11
+Django==3.2.8
 mysqlclient
 redis==3.2.0
 celery==4.2
