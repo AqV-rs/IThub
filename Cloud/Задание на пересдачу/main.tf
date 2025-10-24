@@ -150,7 +150,7 @@ output "instance_name" {
 
 output "private_ip" {
   description = "Reserved fixed (private) IP on subnet"
-  value       = vkcs_networking_port.vm_port.fixed_ip[0].ip_address
+    value       = vkcs_networking_port.vm_port.fixed_ip[0].ip_address
 }
 
 output "public_ip" {
