@@ -3,7 +3,11 @@
     name=fail2ban
     state=installed
 
-c
+- name: Template f2b config
+  template:
+    src: jail.conf.j2
+    dest: /etc/fail2ban/jail.conf
+  become: yes
 
 - name: Start and enable f2b
   ansible.builtin.service:
