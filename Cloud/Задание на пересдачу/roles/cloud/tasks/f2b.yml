@@ -1,0 +1,12 @@
+- name: Install f2b
+  apt:
+    name=fail2ban
+    state=installed
+
+c
+
+- name: Start and enable f2b
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: yes

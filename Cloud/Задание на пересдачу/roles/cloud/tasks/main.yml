@@ -1,0 +1,4 @@
+- name: Nginx
+  include_tasks: "nginx.yml"
+- name: f2b
+  include_tasks: "f2b.yml"
