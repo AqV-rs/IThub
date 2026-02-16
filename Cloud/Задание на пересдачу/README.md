@@ -1,3 +1,13 @@
+Заполнить vkcs_provider.tf.example и выполнить 
+```
+cp vkcs_provider.tf.example vkcs_provider.tf
+```
+
+Выполнить init
+```
+terraform init
+```
+
 Развернуть инфраструктуру при помощи main.tf / variables.tf / vkcs_provider.tf
 ```
 terraform apply  
