@@ -1,7 +1,7 @@
 - name: Install f2b
   apt:
     name=fail2ban
-    state=installed
+    state=present
 
 - name: Template f2b config
   template:
